@@ -3,7 +3,7 @@ _           = require 'lodash'
 moment      = require 'moment'
 MongoClient = require('mongodb').MongoClient
 
-URL         = 'mongodb://localhost:27017/'
+URL         = process.env.MONGODB_URI || 'mongodb://localhost:27017/'
 DATABASE    = process.env.DATABSE || 'articles'
 
 scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
@@ -18,7 +18,7 @@ scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
         unless article._id?
           return article
 
-        MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
+        MongoClient.connect URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
           db = db.db DATABASE
 
@@ -41,7 +41,11 @@ scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
           catch e
             print e
 
-      .done () => resolve result
+      .done (err, result) =>
+         if err
+           reject err
+          else
+            resolve result
 
 scrapingToSaveFindMedia = (url, findSelectorForSetObj, SetObj, findSelectorForSetMedia, SetMedia) =>
   new Promise (resolve, reject) =>

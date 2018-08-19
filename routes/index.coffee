@@ -3,13 +3,13 @@ MongoClient = require('mongodb').MongoClient
 _           = require 'lodash'
 moment      = require 'moment'
 
-URL         = 'mongodb://localhost:27017/'
+URL         = process.env.MONGODB_URI || 'mongodb://localhost:27017/'
 DATABASE    = process.env.DATABSE || 'articles'
 
 router.get '/*', (req, res, next) =>
   page = if req.query.page then req.query.page - 0 else 1
 
-  MongoClient.connect process.env.MONGODB_URI || URL, useNewUrlParser: true, (err, db) =>
+  MongoClient.connect URL, useNewUrlParser: true, (err, db) =>
     throw err if err
 
     db = db.db DATABASE
@@ -36,5 +36,6 @@ router.get '/*', (req, res, next) =>
           max: count / 10
           current: page
       res.render 'index', renderArticles
+    .catch()
 
 module.exports = router
