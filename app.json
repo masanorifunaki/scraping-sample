@@ -1,0 +1,8 @@
+{
+  "name": "scraping-sample",
+  "description": "scraping-sample.",
+  "repository": "https://github.com/masanorifunaki/scraping-sample",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}

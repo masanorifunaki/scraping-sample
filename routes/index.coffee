@@ -7,7 +7,7 @@ URL         = 'mongodb://localhost:27017/'
 router.get '/*', (req, res, next) =>
   page = if req.query.page then req.query.page - 0 else 1
 
-  MongoClient.connect URL, useNewUrlParser: true, (err, db) =>
+  MongoClient.connect process.env.MONGODB_URI || URL, useNewUrlParser: true, (err, db) =>
     throw err if err
 
     db = db.db 'articles'
