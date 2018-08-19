@@ -1,0 +1,19 @@
+{
+  "name": "scraping-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraping-handler.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "coffee": "^5.1.0",
+    "coffeescript": "^2.3.1",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "mongodb": "^3.1.3",
+    "osmosis": "^1.1.8"
+  }
+}
