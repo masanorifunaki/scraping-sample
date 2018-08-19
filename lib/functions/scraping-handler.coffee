@@ -24,7 +24,9 @@ scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
           article.createdAt = moment().toDate()
           article.mediaName = mediaName
           article.mediaLink = mediaLink
-          article.link = "#{article.mediaLink}#{article.link}"
+
+          if article.link.match '^/.*'
+            article.link = "#{article.mediaLink}#{article.link}"
 
           condition =
             _id: article._id
