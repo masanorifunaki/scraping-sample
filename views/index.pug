@@ -7,11 +7,25 @@ html(lang='ja')
     title Welcome Page
     include ./_share/stylesheets
   body
-   each article in articles
-     div.container
-       a(href=article.link)
-        h3=article.title
-       a(href=article.mediaLink)
-        p=article.mediaName
-       p=article.createdAt
-   include ./_share/javascripts
+    include ./_share/navbar
+    .container
+      .list-group
+        .list-group-item.list-group-item-action.active 新着記事一覧
+      .list-group
+       each article in articles
+         a(href=article.link).list-group-item.list-group-item-action.flex-column.align-items-start
+           .d-flex.w-100.justify-content-between
+             h5.mb-1=article.title
+             small=article.createdAt
+           small.mb-1=article.mediaName
+      nav
+        ul.pagination.justify-content-center.mt-3.pagination-lg
+          - for (i = 1; i <= pagination.max; i++)
+            if i !== pagination.current
+              li.page-item
+                a(href!=`/?page=${i}`).page-link #{i}
+            else
+              li.page-item.active
+                a
+                  span.page-link.disabled #{i}
+    include ./_share/javascripts
