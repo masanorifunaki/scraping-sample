@@ -17,7 +17,7 @@ scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
         unless article._id?
           return article
 
-        MongoClient.connect URL, { useNewUrlParser: true }, (err, db) =>
+        MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
           db = db.db 'articles'
 
@@ -56,7 +56,7 @@ scrapingToSaveFindMedia = (url, findSelectorForSetObj, SetObj, findSelectorForSe
         unless article._id?
           return article
 
-        MongoClient.connect URL, { useNewUrlParser: true }, (err, db) =>
+        MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
           db = db.db 'articles'
 
@@ -89,7 +89,7 @@ scrapingToSaveFollowMedia = (url, findSelectorForSetObj, SetObj, followSelectorF
         unless article._id?
           return article
 
-        MongoClient.connect URL, { useNewUrlParser: true }, (err, db) =>
+        MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
           db = db.db 'articles'
 
