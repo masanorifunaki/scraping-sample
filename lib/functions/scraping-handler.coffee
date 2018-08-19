@@ -4,6 +4,7 @@ moment      = require 'moment'
 MongoClient = require('mongodb').MongoClient
 
 URL         = 'mongodb://localhost:27017/'
+DATABASE    = process.env.DATABSE || 'articles'
 
 scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
   new Promise (resolve, reject) =>
@@ -19,7 +20,7 @@ scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
 
         MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
-          db = db.db 'articles'
+          db = db.db DATABASE
 
           article.createdAt = moment().toDate()
           article.mediaName = mediaName
@@ -58,7 +59,7 @@ scrapingToSaveFindMedia = (url, findSelectorForSetObj, SetObj, findSelectorForSe
 
         MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
-          db = db.db 'articles'
+          db = db.db DATABASE
 
           article.createdAt = moment().toDate()
           condition =
@@ -91,7 +92,7 @@ scrapingToSaveFollowMedia = (url, findSelectorForSetObj, SetObj, followSelectorF
 
         MongoClient.connect process.env.MONGODB_URI || URL, { useNewUrlParser: true }, (err, db) =>
           throw err if err
-          db = db.db 'articles'
+          db = db.db DATABASE
 
           article.createdAt = moment().toDate()
           condition =
