@@ -5,6 +5,41 @@ MongoClient = require('mongodb').MongoClient
 
 URL         = 'mongodb://localhost:27017/'
 
+scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
+  new Promise (resolve, reject) =>
+    result = 'OK'
+    osmosis
+      .get url
+      .find findSelectorForSetObj
+      .set SetObj
+      .data (article) =>
+
+        unless article._id?
+          return article
+
+        MongoClient.connect URL, { useNewUrlParser: true }, (err, db) =>
+          throw err if err
+          db = db.db 'articles'
+
+          article.createdAt = moment().toDate()
+          article.mediaName = mediaName
+          article.mediaLink = mediaLink
+          article.link = "#{article.mediaLink}#{article.link}"
+
+          condition =
+            _id: article._id
+          update =
+            $set: article
+
+          try
+            db.collection('articles').findOneAndUpdate(condition, update, upsert: true)
+              .then (result) =>
+                result
+          catch e
+            print e
+
+      .done () => resolve result
+
 scrapingToSaveFindMedia = (url, findSelectorForSetObj, SetObj, findSelectorForSetMedia, SetMedia) =>
   new Promise (resolve, reject) =>
     result = 'OK'
@@ -72,5 +107,6 @@ scrapingToSaveFollowMedia = (url, findSelectorForSetObj, SetObj, followSelectorF
       .done () => resolve result
 
 module.exports =
+  scrapingToSave: scrapingToSave
   scrapingToSaveFindMedia: scrapingToSaveFindMedia
   scrapingToSaveFollowMedia: scrapingToSaveFollowMedia
