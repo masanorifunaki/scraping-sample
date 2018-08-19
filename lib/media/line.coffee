@@ -8,7 +8,7 @@ SetObj =
   link: '.mdCMN03CiteWrap > a:first-child@href'
 findSelectorForSetMedia = '.MdCMN03Article .mdCMN03AtclDataWrap'
 SetMedia =
-  media: '.mdCMN03AtclImgQuotedBy'
+  mediaName: '.mdCMN03AtclImgQuotedBy'
   mediaLink: '.mdCMN03AtclImgQuotedBy@href'
 
 scrapingHandler.scrapingToSaveFindMedia(url, findSelectorForSetObj, SetObj, findSelectorForSetMedia, SetMedia).then (result) =>

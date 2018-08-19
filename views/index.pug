@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+html(lang='ja')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title Welcome Page
+    include ./_share/stylesheets
+  body
+   each article in articles
+     div.container
+       a(href=article.link)
+        h3=article.title
+       a(href=article.mediaLink)
+        p=article.mediaName
+       p=article.createdAt
+   include ./_share/javascripts
