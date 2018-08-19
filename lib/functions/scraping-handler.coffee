@@ -4,7 +4,7 @@ moment      = require 'moment'
 MongoClient = require('mongodb').MongoClient
 
 URL         = process.env.MONGODB_URI || 'mongodb://localhost:27017/'
-DATABASE    = process.env.DATABSE || 'articles'
+DATABASE    = process.env.DATABASE || 'articles'
 
 scrapingToSave = (url, findSelectorForSetObj, SetObj, mediaName, mediaLink) =>
   new Promise (resolve, reject) =>

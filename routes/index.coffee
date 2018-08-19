@@ -4,7 +4,7 @@ _           = require 'lodash'
 moment      = require 'moment'
 
 URL         = process.env.MONGODB_URI || 'mongodb://localhost:27017/'
-DATABASE    = process.env.DATABSE || 'articles'
+DATABASE    = process.env.DATABASE || 'articles'
 
 router.get '/*', (req, res, next) =>
   page = if req.query.page then req.query.page - 0 else 1
@@ -12,7 +12,7 @@ router.get '/*', (req, res, next) =>
   MongoClient.connect URL, useNewUrlParser: true, (err, db) =>
     throw err if err
 
-    db = db.db DATABASE
+    db = db.db 'heroku_8nzt1zr3'
 
     Promise.all [
       db.collection('articles')
